@@ -1,0 +1,19 @@
+name: Update version
+
+on:
+  schedule:
+    - cron: '0 0,12 * * *'
+
+jobs:
+  updateVersion:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
+      - name: get latest ver from zen git
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./scripts/updateVersion.sh
