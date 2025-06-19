@@ -1,5 +1,7 @@
-echo $GH_TOKEN
-curl --request GET \
---url "https://api.github.com/octocat" \
---header "Authorization: Bearer $GH_TOKEN" \
---header "X-GitHub-Api-Version: 2022-11-28"
+curl -L \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer $GH_TOKEN" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/zen-browser-auto/www-temp/tags/protection \
+  > resp.json
+  cat resp.json
