@@ -11,10 +11,10 @@ sed -i -e '11a,' version.json
 wget -O zen-beta.tar.gz "$(jq -r '.beta.tarball_url' version.json)"
 wget -O zen-twilight.tar.gz "$(jq -r '.twilight.tarball_url' version.json)"
 
-ls -la
-
 BTSHA=$(sudo sha256sum zen-beta.tar.gz | sudo awk '{print $1}')
 TWSHA=$(sudo sha256sum zen-twilight.tar.gz | sudo awk '{print $1}')
+
+echo $TWSHA
 
 jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
 
