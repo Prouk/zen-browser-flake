@@ -15,8 +15,8 @@ curl -OL $(jq -r '.twilight.tarball_url' version.json) > zen-twilight.tar.gz
 
 sudo apt install hashalot
 
-BTSHA= $(shasum -a 256 zen-beta.tar.gz | awk '{print $1}')
-TWSHA= $(shasum -a 256 zen-beta.tar.gz | awk '{print $1}')
+BTSHA= $(sha256sum zen-beta.tar.gz | awk '{print $1}')
+TWSHA= $(sha256sum zen-beta.tar.gz | awk '{print $1}')
 
 echo "${BTSHA}"
 
