@@ -10,14 +10,12 @@ curl -L \
 sed -i '12,13d' version.json
 sed -i -e '11a,' version.json
 
-VERSION_CONTENT=$(cat version.json | base64 -w 0)
-
 BTSHA=$(curl -OL $(cat version.json | jq -r '.beta.tarball_url')+".sha256") 
 TWSHA=$(curl -OL $(cat version.json | jq -r '.twilight.tarball_url')+".sha256") 
 
 cat version.json | jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' > version.json
 
-cat version.json
+VERSION_CONTENT=$(cat version.json | base64 -w 0)
 
 VERSION_SHA=$(curl -L \
   -H "Accept: application/vnd.github+json" \
