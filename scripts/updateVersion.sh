@@ -8,13 +8,15 @@ curl -L \
 sed -i '12,13d' version.json
 sed -i -e '11a,' version.json
 
-wget -O zen-beta.tar.gz "$(jq -r '.beta.tarball_url' version.json)"
-wget -O zen-twilight.tar.gz "$(jq -r '.twilight.tarball_url' version.json)"
+BTNAME=$(wget -nv "$(jq -r '.beta.zipball_url' version.json)" 2>&1 | cut -d\" -f2)
+TWNAME=$(wget -nv "$(jq -r '.twilight.zipball_url' version.json)" 2>&1 | cut -d\" -f2)
 
-BTSHA=$(sudo sha256sum zen-beta.tar.gz | sudo awk '{print $1}')
-TWSHA=$(sudo sha256sum zen-twilight.tar.gz | sudo awk '{print $1}')
+tar -xz 
 
-echo $TWSHA
+BTSHA=$(sudo sha256sum "$BTNAME" | sudo awk '{print $1}')
+TWSHA=$(sudo sha256sum "$TWNAME" | sudo awk '{print $1}')
+
+ls -la
 
 jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
 

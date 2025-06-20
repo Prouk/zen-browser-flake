@@ -1,12 +1,14 @@
-{ pkgs, version, ... }:
+{ pkgs, fetchgit,  version, ... }:
 
 pkgs.stdenv.mkDerivation {
   pname = "zen-browser";
   version = version.twilight.name;
 
-  src = builtins.fetchTarball {
-    url = version.twilight.tarball_url;
-    sha256 = version.twilight.tarball_sha;
+  src = pkgs.fetchFromGitHub {
+    owner = "zen-browser";
+    repo = "desktop";
+    rev = version.twilight.commit.sha;
+    hash = version.twilight.commit.sha;
   };
 
   installPhase = ''
