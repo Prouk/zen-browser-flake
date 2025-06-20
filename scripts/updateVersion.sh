@@ -1,5 +1,3 @@
-echo "Getting last tag from temp"
-   
 curl -L \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer $GH_TOKEN" \
@@ -14,7 +12,7 @@ curl -OL $(jq -r '.beta.tarball_url' version.json) > zen-beta.tar.gz
 curl -OL $(jq -r '.twilight.tarball_url' version.json) > zen-twilight.tar.gz
 
 BTSHA=$(sudo sha256sum zen-beta.tar.gz | sudo awk '{print $1}')
-TWSHA=$(sudo sha256sum zen-beta.tar.gz | sudo awk '{print $1}')
+TWSHA=$(sudo sha256sum zen-twilight.tar.gz | sudo awk '{print $1}')
 
 jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
 
