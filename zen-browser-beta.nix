@@ -1,4 +1,4 @@
-{ pkgs, fetchurl, src, ... }:
+{ pkgs, fetchurl, ... }:
 
 pkgs.stdenv.mkDerivation {
   pname = "zen-browser-beta";

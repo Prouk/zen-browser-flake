@@ -1,4 +1,4 @@
-{ pkgs, src, ... }:
+{ pkgs, ... }:
 
 pkgs.stdenv.mkDerivation {
   pname = "zen-browser-twilight";
