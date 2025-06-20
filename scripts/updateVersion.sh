@@ -15,8 +15,8 @@ curl -OL $(jq -r '.twilight.tarball_url' version.json) > zen-twilight.tar.gz
 
 sudo apt install gawk
 
-BTSHA= $(sha256sum zen-beta.tar.gz | gawk '{print $1}')
-TWSHA= $(sha256sum zen-beta.tar.gz | g²awk '{print $1}')
+BTSHA= $(sudo sha256sum zen-beta.tar.gz | sudo awk '{print $1}')
+TWSHA= $(sudo sha256sum zen-beta.tar.gz | sudo awk '{print $1}')
 
 echo "${BTSHA}"
 
