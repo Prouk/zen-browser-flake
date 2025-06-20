@@ -6,7 +6,7 @@ curl -L \
   -H "Authorization: Bearer $GH_TOKEN" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
   https://api.github.com/repos/zen-browser/desktop/tags \
-  | jq -r '{.[0,1]}' >> version.json 
+  | jq -r '[.[0,1]]' >> version.json 
 
 echo "]" >> version.json
 
