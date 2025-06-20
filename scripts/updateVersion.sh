@@ -13,7 +13,7 @@ sed -i -e '11a,' version.json
 curl -OL $(jq -r '.beta.tarball_url' version.json) > zen-beta.tar.gz
 curl -OL $(jq -r '.twilight.tarball_url' version.json) > zen-twilight.tar.gz
 
-apt install shasum
+sudo apt install shasum
 
 BTSHA= $(shasum -a 256 zen-beta.tar.gz | awk '{print $1}')
 TWSHA= $(shasum -a 256 zen-beta.tar.gz | awk '{print $1}')
