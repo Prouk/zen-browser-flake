@@ -8,7 +8,7 @@ curl -L \
   | jq -r '.[0,1] | {(if .name=="twilight" then "twilight" else "beta" end): .}' > version.json 
 
 sed -i '12,13d' version.json
-sed -i -e '12a,' version.json
+sed -i -e '11a,' version.json
 
 VERSION_CONTENT=$(cat version.json | base64 -w 0)
 
