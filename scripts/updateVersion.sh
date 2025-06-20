@@ -15,7 +15,7 @@ VERSION_CONTENT=$(cat version.json | base64 -w 0)
 BTSHA=$(curl -OL $(cat version.json | jq -r '.beta.tarball_url')+".sha256") 
 TWSHA=$(curl -OL $(cat version.json | jq -r '.twilight.tarball_url')+".sha256") 
 
-sed -i -e '5a'"$TWSHA"'' version.json && sed -i -e '16a'"$BTSHA"'' version.json
+sed -i -e "5a$TWSHA" version.json && sed -i -e "16a$BTSHA" version.json
 
 VERSION_SHA=$(curl -L \
   -H "Accept: application/vnd.github+json" \
