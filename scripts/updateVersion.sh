@@ -10,9 +10,11 @@ curl -L \
 sed -i '12,13d' version.json
 sed -i -e '11a,' version.json
 
-BTSHA=$(curl -OL $(jq -r '.beta.tarball_url' version.json)".sha256") 
-TWSHA=$(curl -OL $(jq -r '.twilight.tarball_url' version.json)".sha256")
-echo $(jq -r '.twilight.tarball_url' version.json)".sha256"
+$(curl -OL $(jq -r '.beta.tarball_url' version.json) > zen-beta.tar.gz
+$(curl -OL $(jq -r '.twilight.tarball_url' version.json)) > zen-twilight.tar.gz
+
+BTSHA= $(sha256sum zen-beta.tar.gz | awk '{print $1}')
+TWSHA= $(sha256sum zen-beta.tar.gz | awk '{print $1}')
 
 jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.json
 
