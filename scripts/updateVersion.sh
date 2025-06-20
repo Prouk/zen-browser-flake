@@ -16,7 +16,7 @@ curl -OL $(jq -r '.twilight.tarball_url' version.json) > zen-twilight.tar.gz
 BTSHA=$(sudo sha256sum zen-beta.tar.gz | sudo awk '{print $1}')
 TWSHA=$(sudo sha256sum zen-beta.tar.gz | sudo awk '{print $1}')
 
-jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.json
+jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
 
 VERSION_CONTENT=$(cat version.json | base64 -w 0)
 
