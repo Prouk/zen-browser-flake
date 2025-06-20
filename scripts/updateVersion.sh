@@ -8,8 +8,8 @@ curl -L \
 sed -i '12,13d' version.json
 sed -i -e '11a,' version.json
 
-wget -O zen-beta.tar.gz $(jq -r '.beta.tarball_url' version.json)
-wget -O zen-twilight.tar.gz $(jq -r'.twilight.tarball_url' version.json)
+wget -O zen-beta.tar.gz "$(jq -r '.beta.tarball_url' version.json)"
+wget -O zen-twilight.tar.gz "$(jq -r'.twilight.tarball_url' version.json)"
 
 ls -la
 
