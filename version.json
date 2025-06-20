@@ -1,1 +1,12 @@
+[
+{
+  "name": "twilight",
+  "zipball_url": "https://api.github.com/repos/zen-browser/desktop/zipball/refs/tags/twilight",
+  "tarball_url": "https://api.github.com/repos/zen-browser/desktop/tarball/refs/tags/twilight",
+  "commit": {
+    "sha": "8813c5174e2adfe4c1ca8827aa1da748f6e3d070",
+    "url": "https://api.github.com/repos/zen-browser/desktop/commits/8813c5174e2adfe4c1ca8827aa1da748f6e3d070"
+  },
+  "node_id": "REF_kwDOLmfWBLJyZWZzL3RhZ3MvdHdpbGlnaHQ"
+}
 ]
