@@ -7,6 +7,9 @@ curl -L \
   https://api.github.com/repos/zen-browser/desktop/tags \
   | jq -r '.[0,1] | {(if .name=="twilight" then "twilight" else "beta" end): .}' > version.json 
 
+sed -i '12,13d' version.json
+sed -i '12d' s/$/;/ version.json
+
 VERSION_CONTENT=$(cat version.json | base64 -w 0)
 
 VERSION_SHA=$(curl -L \
