@@ -19,6 +19,8 @@ VERSION_SHA= curl -L \
   https://api.github.com/repos/Prouk/zen-browser-flake/contents/version.json \
   | jq -r '.[0].sha'
 
+echo "writing version.json with sha : "$VERSION_SHA
+
 curl -L \
   -X PUT \
   -H "Accept: application/vnd.github+json" \
