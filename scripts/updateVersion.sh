@@ -10,7 +10,7 @@ curl -L \
 
 echo "]" > version.json
 
-VERSION_CONTENT= cat version.json | base64
+VERSION_CONTENT= base64 -w 0 <<< cat version.json
 
 VERSION_SHA= curl -L \
   -H "Accept: application/vnd.github+json" \
