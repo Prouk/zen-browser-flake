@@ -12,7 +12,7 @@
       pkgs = import nixpkgs {
         inherit system;
       };
-      version = builtins.fromJSON ./version.json;
+      version = builtins.fromJSON (builtins.readFile ./version.json);
     in
     {
       packages.${system} = {
