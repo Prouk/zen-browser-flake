@@ -10,9 +10,9 @@ curl -L \
 sed -i '12,13d' version.json
 sed -i -e '11a,' version.json
 
-BTSHA=$(curl -OL $(jq -r '.beta.tarball_url' version.json)+".sha256") 
-TWSHA=$(curl -OL $(jq -r '.twilight.tarball_url' version.json)+".sha256")
-echo $(jq -r '.twilight.tarball_url' version.json)+".sha256"
+BTSHA=$(curl -OL $(jq -r '.beta.tarball_url' version.json)".sha256") 
+TWSHA=$(curl -OL $(jq -r '.twilight.tarball_url' version.json)".sha256")
+echo $(jq -r '.twilight.tarball_url' version.json)".sha256"
 
 jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.json
 
