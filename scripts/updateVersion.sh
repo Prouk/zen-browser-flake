@@ -17,7 +17,7 @@ VERSION_SHA= curl -L \
   -H "Authorization: Bearer $GH_TOKEN" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
   https://api.github.com/repos/Prouk/zen-browser-flake/contents/version.json \
-  | jq -r '.[0].sha'
+  | jq -r '.sha'
 
 echo "writing version.json with sha : "$VERSION_SHA
 
