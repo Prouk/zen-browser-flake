@@ -18,6 +18,8 @@ TWSHA= $(sha256sum zen-beta.tar.gz | awk '{print $1}')
 
 jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.json
 
+cat version.json
+
 VERSION_CONTENT=$(cat version.json | base64 -w 0)
 
 VERSION_SHA=$(curl -L \
