@@ -17,6 +17,8 @@ TWSHA=$(curl -OL $(cat version.json | jq -r '.twilight.tarball_url')+".sha256")
 
 cat version.json | jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' > version.json
 
+cat version.json
+
 VERSION_SHA=$(curl -L \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer $GH_TOKEN" \
