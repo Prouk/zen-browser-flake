@@ -8,8 +8,8 @@ curl -L \
 sed -i '12,13d' version.json
 sed -i -e '11a,' version.json
 
-BTNAME=$(wget --server-response -q -O - "$(jq -r '.beta.zipball_url' version.json)" 2>&1 | grep "Content-Disposition:" | tail -1 |  awk 'match($0, /filename=(.+)/, f){ print f[1] }' ))
-TWNAME=$(wget --server-response -q -0 - "$(jq -r '.twilight.zipball_url' version.json)" 2>&1 | grep "Content-Disposition:" | tail -1 |  awk 'match($0, /filename=(.+)/, f){ print f[1] }' ))
+BTNAME=$(wget "$(jq -r '.beta.zipball_url' version.json)")
+TWNAME=$(wget "$(jq -r '.twilight.zipball_url' version.json)")
 
 unzip $BTNAME
 unzip $TWNAME
