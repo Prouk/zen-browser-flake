@@ -9,9 +9,6 @@
     },
     "node_id": "REF_kwDOLmfWBLJyZWZzL3RhZ3MvdHdpbGlnaHQ"
   }
-}
-{
-  "beta": {
     "name": "1.13.2b",
     "zipball_url": "https://api.github.com/repos/zen-browser/desktop/zipball/refs/tags/1.13.2b",
     "tarball_url": "https://api.github.com/repos/zen-browser/desktop/tarball/refs/tags/1.13.2b",
