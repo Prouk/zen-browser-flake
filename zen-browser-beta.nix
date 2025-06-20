@@ -1,10 +1,11 @@
-{ pkgs, src, ... }:
+{ pkgs, fetchurl, src, ... }:
 
 pkgs.stdenv.mkDerivation {
-  pname = "zen-browser-twilight-temp";
+  pname = "zen-browser-beta";
+  applicationName = "Zen Browser (beta)";
   version = "0.1";
 
-  src = fetchTarball {
+  src = fetchurl {
     url = src.url;
     sha256 = src.sha256;
   };
@@ -14,7 +15,7 @@ pkgs.stdenv.mkDerivation {
     ls -la
     chmod +x zen zen-bin
     cp -r * $out/bin
-    ./$out/bin/zen
+    ls -la $out/bin
+    # $out/bin/zen-bin
   '';
-
 }
