@@ -10,14 +10,14 @@ curl -L \
 
 echo "]" > version.json
 
-VERSION_CONTENT= cat version.json | base64 -w 0
+VERSION_CONTENT=$(cat version.json | base64 -w 0)
 
-VERSION_SHA= curl -L \
+VERSION_SHA=$(curl -L \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer $GH_TOKEN" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
   https://api.github.com/repos/Prouk/zen-browser-flake/contents/version.json \
-  | jq -r '.sha'
+  | jq -r '.sha')
 
 echo "writing version.json with sha : "$VERSION_SHA
 
