@@ -8,18 +8,22 @@ curl -L \
 sed -i '12,13d' version.json
 sed -i -e '11a,' version.json
 
-# $(wget "$(jq -r '.beta.zipball_url' version.json)")
-# $(wget "$(jq -r '.twilight.zipball_url' version.json)")
+$(wget "$(jq -r '.beta.tarball_url' version.json)")
+$(wget "$(jq -r '.twilight.tarball_url' version.json)")
 
-# unzip $(jq -r '.beta.name' version.json)
-# unzip twilight
+tar -xz $(jq -r '.beta.name' version.json)
+tar -xz twilight
+
+BTNAME=$(wget "$(jq -r '.beta.zipball_url' version.json)")Add commentMore actions
+TWNAME=$(wget "$(jq -r '.twilight.zipball_url' version.json)")
 
 # BTSHA=$(sudo sha256sum "$BTNAME" | sudo awk '{print $1}')
 # TWSHA=$(sudo sha256sum "$TWNAME" | sudo awk '{print $1}')
 
-# ls -la
+BTSHA=$BTNAME; (find "$dir" -type f -exec sha256sum {} +; find "$dir" -type d) | LC_ALL=C sort | sha256sum
+TWSHA=$BTNAME; (find "$dir" -type f -exec sha256sum {} +; find "$dir" -type d) | LC_ALL=C sort | sha256sum
 
-# jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
+jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
 
 VERSION_CONTENT=$(cat version.json | base64 -w 0)
 
