@@ -11,8 +11,8 @@ sed -i -e '11a,' version.json
 $(wget "$(jq -r '.beta.tarball_url' version.json)")
 $(wget "$(jq -r '.twilight.tarball_url' version.json)")
 
-tar -xz $(jq -r '.beta.name' version.json)
-tar -xz twilight
+tar -xf $(jq -r '.beta.name' version.json)
+tar -xf twilight
 
 BTNAME=$(wget "$(jq -r '.beta.name' version.json)")
 TWNAME=$(wget "$(jq -r '.twilight.name' version.json)")
