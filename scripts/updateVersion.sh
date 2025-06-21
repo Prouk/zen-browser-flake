@@ -20,8 +20,8 @@ TWNAME=$(wget "$(jq -r '.twilight.zipball_url' version.json)")
 # BTSHA=$(sudo sha256sum "$BTNAME" | sudo awk '{print $1}')
 # TWSHA=$(sudo sha256sum "$TWNAME" | sudo awk '{print $1}')
 
-BTSHA=$($BTNAME"1"; (find "$dir" -type f -exec sha256sum {} +; find "$dir" -type d) | LC_ALL=C sort | sha256sum)
-TWSHA=$($BTNAME"1"; (find "$dir" -type f -exec sha256sum {} +; find "$dir" -type d) | LC_ALL=C sort | sha256sum)
+BTSHA=$($BTNAME+".1"; (find "$dir" -type f -exec sha256sum {} +; find "$dir" -type d) | LC_ALL=C sort | sha256sum)
+TWSHA=$($BTNAME+".1"; (find "$dir" -type f -exec sha256sum {} +; find "$dir" -type d) | LC_ALL=C sort | sha256sum)
 
 jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
 
