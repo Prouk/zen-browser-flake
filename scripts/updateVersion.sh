@@ -14,14 +14,14 @@ $(wget "$(jq -r '.twilight.tarball_url' version.json)")
 tar -xf $(jq -r '.beta.name' version.json)
 tar -xf twilight
 
-BTNAME=$(wget "$(jq -r '.beta.name' version.json)")
-TWNAME=$(wget "$(jq -r '.twilight.name' version.json)")
+BTNAME=$(jq -r '.beta.name' version.json)
+TWNAME=$(jq -r '.twilight.name' version.json)
 
 # BTSHA=$(sudo sha256sum "$BTNAME" | sudo awk '{print $1}')
 # TWSHA=$(sudo sha256sum "$TWNAME" | sudo awk '{print $1}')
 
-BTSHA=$(dir=$BTNAME+".1"; (find "$dir" -type f -exec sha256sum {} +; find "$dir" -type d) | LC_ALL=C sort | sha256sum)
-TWSHA=$(dir=$BTNAME+".1"; (find "$dir" -type f -exec sha256sum {} +; find "$dir" -type d) | LC_ALL=C sort | sha256sum)
+BTSHA=$(dir=$BTNAME".1"; (find "$dir" -type f -exec sha256sum {} +; find "$dir" -type d) | LC_ALL=C sort | sha256sum)
+TWSHA=$(dir=$BTNAME".1"; (find "$dir" -type f -exec sha256sum {} +; find "$dir" -type d) | LC_ALL=C sort | sha256sum)
 
 jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
 
