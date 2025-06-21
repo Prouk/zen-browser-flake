@@ -8,18 +8,18 @@ curl -L \
 sed -i '12,13d' version.json
 sed -i -e '11a,' version.json
 
-$(wget "$(jq -r '.beta.zipball_url' version.json)")
-$(wget "$(jq -r '.twilight.zipball_url' version.json)")
+# $(wget "$(jq -r '.beta.zipball_url' version.json)")
+# $(wget "$(jq -r '.twilight.zipball_url' version.json)")
 
-unzip $(jq -r '.beta.name' version.json)
-unzip $TWNAME
+# unzip $(jq -r '.beta.name' version.json)
+# unzip twilight
 
-BTSHA=$(sudo sha256sum "$BTNAME" | sudo awk '{print $1}')
-TWSHA=$(sudo sha256sum "$TWNAME" | sudo awk '{print $1}')
+# BTSHA=$(sudo sha256sum "$BTNAME" | sudo awk '{print $1}')
+# TWSHA=$(sudo sha256sum "$TWNAME" | sudo awk '{print $1}')
 
-ls -la
+# ls -la
 
-jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
+# jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
 
 VERSION_CONTENT=$(cat version.json | base64 -w 0)
 
