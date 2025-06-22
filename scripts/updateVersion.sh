@@ -8,8 +8,8 @@ curl -L \
 sed -i '12,13d' version.json
 sed -i -e '11a,' version.json
 
-BTSHA=$(wget "$(jq -r '.beta.tarball_url' version.json)" -O "$(jq -r '.beta.name' version.json)" | sha256sum)
-TWSHA=$(wget "$(jq -r '.twilight.tarball_url' version.json)" -O "$(jq -r '.twilight.name' version.json)" | sha256sum)
+BTSHA=$(wget "$(jq -r '.beta.tarball_url' version.json)" -O "$(jq -r '.beta.name' version.json)".tar.gz | sha256sum)
+TWSHA=$(wget "$(jq -r '.twilight.tarball_url' version.json)" -O "$(jq -r '.twilight.name' version.json)".tar.gz | sha256sum)
 
 jq '.beta += {tarball_sha: "'"${BTSHA::-3}"'"} | .twilight += {tarball_sha: "'"${TWSHA::-3}"'"}' version.json > version.tmp && mv version.tmp version.json
 
