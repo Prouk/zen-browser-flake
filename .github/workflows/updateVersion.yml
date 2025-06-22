@@ -3,11 +3,13 @@ name: Update version
 on:
   workflow_dispatch: 
   schedule:
-    - cron: '0 1,5,13,17,21 * * *'
+    - cron: '0,6,12,18 * * *'
 
 jobs:
   updateVersion:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     defaults:
       run:
         working-directory: ./
