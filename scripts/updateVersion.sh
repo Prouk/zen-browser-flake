@@ -8,25 +8,8 @@ curl -L \
 sed -i '12,13d' version.json
 sed -i -e '11a,' version.json
 
-BTSHA=$(wget "$(jq -r '.beta.tarball_url' version.json)" -O "$(jq -r '.beta.name' version.json)".tar.gz | sha256sum)
-TWSHA=$(wget "$(jq -r '.twilight.tarball_url' version.json)" -O "$(jq -r '.twilight.name' version.json)".tar.gz | sha256sum)
+BTSHA=$(nix-hash --type sha256 --base32 --flat <(curl -O - $(jq -r '.beta.tarball_url' version.json))
+TWSHA=$(nix-hash --type sah256 --base32 --flat <(curl -O - $(jq -r '.twilight.tarball_url' version.json)))
 
-# jq '.beta += {tarball_sha: "'"${BTSHA::-3}"'"} | .twilight += {tarball_sha: "'"${TWSHA::-3}"'"}' version.json > version.tmp && mv version.tmp version.json
+jq '.beta += {tarball_sha: "'"${BTSHA::-3}"'"} | .twilight += {tarball_sha: "'"${TWSHA::-3}"'"}' version.json > version.tmp && mv version.tmp version.json
 jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
-
-VERSION_CONTENT=$(cat version.json | base64 -w 0)
-
-VERSION_SHA=$(curl -L \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer $GH_TOKEN" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  https://api.github.com/repos/Prouk/zen-browser-flake/contents/version.json \
-  | jq -r '.sha')
-
-curl -L \
-  -X PUT \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer $GH_TOKEN" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  https://api.github.com/repos/Prouk/zen-browser-flake/contents/version.json \
-  -d '{"message":"version.js update","branch":"main","sha":"'"$VERSION_SHA"'","committer":{"name":"Prouk (action)","email":"valentin.tahon2@gmail.com"},"content":"'"$VERSION_CONTENT"'"}'
