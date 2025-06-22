@@ -1,13 +1,12 @@
-{ pkgs,  version, ... }:
+{ pkgs, fetchzip, version, ... }:
 pkgs.stdenv.mkDerivation {
   pname = "zen-browser";
   version = version.twilight.name;
 
-  src = pkgs.fetchFromGitHub {
-    owner = "zen-browser";
-    repo = "desktop";
-    rev = version.twilight.commit.sha;
+  src = fetchzip {
+    url = version.twilight.zipball_url;
     sha256 = version.twilight.zipball_sha;
+    extension = "zip";
   };
 
   installPhase = ''

@@ -8,7 +8,7 @@ curl -L \
 sed -i '12,13d' version.json
 sed -i -e '11a,' version.json
 
-BTSHA=$(nix-hash --type sha256 --base32 --flat <(curl -o - $(jq -r '.beta.zipball_url' version.json)))
-TWSHA=$(nix-hash --type sha256 --base32 --flat <(curl -o - $(jq -r '.twilight.zipball_url' version.json)))
+BTSHA=$(nix-hash --type sha256 --base32 --flat <(curl -o - https://github.com/zen-browser/desktop/releases/download/latest/zen.linux-x86_64.tar.xz)
+TWSHA=$(nix-hash --type sha256 --base32 --flat <(curl -o - https://github.com/zen-browser/desktop/releases/download/twilight/zen.linux-x86_64.tar.xz)
 
-jq '.beta += {zipball_sha: "'"$BTSHA"'"} | .twilight += {zipball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
+jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
