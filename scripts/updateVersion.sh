@@ -28,7 +28,7 @@ TWSHA=$(find beta_dir -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum
 
 echo $BTSHA
 
-jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
+jq '.beta += {tarball_sha: "'"${BTSHA::-3}"'"} | .twilight += {tarball_sha: "'"${TWSHA::-3}"'"}' version.json > version.tmp && mv version.tmp version.json
 
 VERSION_CONTENT=$(cat version.json | base64 -w 0)
 
