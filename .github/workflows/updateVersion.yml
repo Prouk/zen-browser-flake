@@ -17,7 +17,6 @@ jobs:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
       - name: Install Nix
-        if: steps.check.outputs.should_update == 'true'
         uses: cachix/install-nix-action@v31
         with:
           nix_path: nixpkgs=channel:nixpkgs-unstable
