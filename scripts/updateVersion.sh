@@ -23,8 +23,8 @@ tar -xzf twilight -C twilight_dir
 # BTSHA=$(sudo sha256sum "$BTNAME" | sudo awk '{print $1}')
 # TWSHA=$(sudo sha256sum "$TWNAME" | sudo awk '{print $1}')
 
-BTSHA=$(dir="beta_dir"; (find "$dir" -type f -exec sha256sum {} +; find "$dir" -type d) | LC_ALL=C sort | sha256sum)
-TWSHA=$(dir="twilight_dir"; (find "$dir" -type f -exec sha256sum {} +; find "$dir" -type d) | LC_ALL=C sort | sha256sum)
+BTSHA=$(find twilight_dir -type f -print0 | xargs -0 sha1sum)
+TWSHA=$(find beta_dir -type f -print0 | xargs -0 sha1sum)
 
 jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
 
