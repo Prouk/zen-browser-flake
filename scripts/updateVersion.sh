@@ -11,7 +11,8 @@ sed -i -e '11a,' version.json
 BTSHA=$(wget "$(jq -r '.beta.tarball_url' version.json)" -O "$(jq -r '.beta.name' version.json)".tar.gz | sha256sum)
 TWSHA=$(wget "$(jq -r '.twilight.tarball_url' version.json)" -O "$(jq -r '.twilight.name' version.json)".tar.gz | sha256sum)
 
-jq '.beta += {tarball_sha: "'"${BTSHA::-3}"'"} | .twilight += {tarball_sha: "'"${TWSHA::-3}"'"}' version.json > version.tmp && mv version.tmp version.json
+# jq '.beta += {tarball_sha: "'"${BTSHA::-3}"'"} | .twilight += {tarball_sha: "'"${TWSHA::-3}"'"}' version.json > version.tmp && mv version.tmp version.json
+jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
 
 VERSION_CONTENT=$(cat version.json | base64 -w 0)
 
