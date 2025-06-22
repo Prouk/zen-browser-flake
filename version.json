@@ -8,7 +8,7 @@
       "url": "https://api.github.com/repos/zen-browser/desktop/commits/8813c5174e2adfe4c1ca8827aa1da748f6e3d070"
     },
     "node_id": "REF_kwDOLmfWBLJyZWZzL3RhZ3MvdHdpbGlnaHQ",
-    "tarball_sha": "3e40f89c7a71e8d7195e8217e73a3066281c837cc1ab7352c1ef5a9542cb8db8"
+    "tarball_sha": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   "beta": {
     "name": "1.13.2b",
@@ -19,6 +19,6 @@
       "url": "https://api.github.com/repos/zen-browser/desktop/commits/dcd032856bd089e033eafb779d3f1b8665551597"
     },
     "node_id": "REF_kwDOLmfWBLFyZWZzL3RhZ3MvMS4xMy4yYg",
-    "tarball_sha": "ba5b34e842a97e0e267ef60d0e4976e9befdd7973275a28225d77a07fe790f7d"
+    "tarball_sha": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   }
 }
