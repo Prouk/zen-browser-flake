@@ -1,12 +1,11 @@
-{ pkgs, fetchzip, version, ... }:
+{ pkgs, fetchurl, version, ... }:
 pkgs.stdenv.mkDerivation {
   pname = "zen-browser";
   version = version.twilight.name;
 
-  src = fetchzip {
-    url = version.twilight.zipball_url;
-    sha256 = version.twilight.zipball_sha;
-    extension = "zip";
+  src = fetchurl {
+    url = version.twilight.tarball_url;
+    sha256 = version.twilight.tarball_sha;
   };
 
   installPhase = ''
