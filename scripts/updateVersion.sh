@@ -11,4 +11,4 @@ sed -i -e '11a,' version.json
 BTSHA=$(shasum -a 256 <(curl -o - $(jq -r '.beta.tarball_url' version.json)))
 TWSHA=$(shasum -a 256 <(curl -o - $(jq -r '.twilight.tarball_url' version.json)))
 
-jq '.beta += {zipball_sha: "'"$BTSHA"'"} | .twilight += {zipball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
+jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
