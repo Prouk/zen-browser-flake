@@ -7,9 +7,9 @@
       "sha": "8813c5174e2adfe4c1ca8827aa1da748f6e3d070",
       "url": "https://api.github.com/repos/zen-browser/desktop/commits/8813c5174e2adfe4c1ca8827aa1da748f6e3d070"
     },
-    "node_id": "REF_kwDOLmfWBLJyZWZzL3RhZ3MvdHdpbGlnaHQ",
-    "tarball_sha": "8d0c752179c3340254073e044429b7beb5005482879c644cd123c190186ad106  -"
-  },
+    "node_id": "REF_kwDOLmfWBLJyZWZzL3RhZ3MvdHdpbGlnaHQ"
+  }
+,
   "beta": {
     "name": "1.13.2b",
     "zipball_url": "https://api.github.com/repos/zen-browser/desktop/zipball/refs/tags/1.13.2b",
@@ -18,7 +18,6 @@
       "sha": "dcd032856bd089e033eafb779d3f1b8665551597",
       "url": "https://api.github.com/repos/zen-browser/desktop/commits/dcd032856bd089e033eafb779d3f1b8665551597"
     },
-    "node_id": "REF_kwDOLmfWBLFyZWZzL3RhZ3MvMS4xMy4yYg",
-    "tarball_sha": "6794d97831819b58928f5fd70e9b3340c43ce061f08cbd3491c8a133a9ebbc01  -"
+    "node_id": "REF_kwDOLmfWBLFyZWZzL3RhZ3MvMS4xMy4yYg"
   }
 }
