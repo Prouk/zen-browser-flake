@@ -8,8 +8,8 @@ curl -L \
 sed -i '12,13d' version.json
 sed -i -e '11a,' version.json
 
-BTSHA=$(nix-hash --type sha256 --base32 --flat <(curl -O - $(jq -r '.beta.tarball_url' version.json)))
-TWSHA=$(nix-hash --type sah256 --base32 --flat <(curl -O - $(jq -r '.twilight.tarball_url' version.json)))
+BTSHA=$(nix-hash --type sha256 --base32 --flat <(curl -o - $(jq -r '.beta.tarball_url' version.json)))
+TWSHA=$(nix-hash --type sha256 --base32 --flat <(curl -o - $(jq -r '.twilight.tarball_url' version.json)))
 
 jq '.beta += {tarball_sha: "'"${BTSHA::-3}"'"} | .twilight += {tarball_sha: "'"${TWSHA::-3}"'"}' version.json > version.tmp && mv version.tmp version.json
 jq '.beta += {tarball_sha: "'"$BTSHA"'"} | .twilight += {tarball_sha: "'"$TWSHA"'"}' version.json > version.tmp && mv version.tmp version.json
