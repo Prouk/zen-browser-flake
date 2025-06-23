@@ -19,6 +19,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   updateVersionJson:
+    needs: checkLatestVersion
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -28,4 +29,3 @@ jobs:
         uses: actions/checkout@v4
       - name: Update and push last version to the json
         run: ../../scripts
-        if: 
