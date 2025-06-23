@@ -1,4 +1,20 @@
-{ stdenv, version, autoPatchelfHook, patchelfUnstable, ... }:
+{
+  stdenv,
+  version,
+  autoPatchelfHook,
+  patchelfUnstable,
+  gtk3,
+  alsa-lib,
+  dbus-glib,
+  libva,
+  pciutils,
+  adwaita-icon-theme,
+  libXtst,
+  curl,
+  libGL,
+  pipewire,
+  ...
+}:
 stdenv.mkDerivation {
   pname = "Zen Browser";
   version = version.twilight.tag_name;
@@ -14,6 +30,25 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     autoPatchelfHook
     patchelfUnstable
+  ];
+
+  buildInputs = [
+    gtk3
+    alsa-lib
+    dbus-glib
+    adwaita-icon-theme
+    libXtst
+  ];
+
+  runtimeDependencies = [
+    libGL
+    curl
+    libva
+    pciutils
+  ];
+
+  appendRunpaths = [
+    "${pipewire}/lib"
   ];
 
   installPhase = ''
