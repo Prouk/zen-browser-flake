@@ -1,4 +1,4 @@
-{ stdenv, version, ... }:
+{ stdenv, version, autoPatchelfHook, ... }:
 stdenv.mkDerivation {
   pname = "Zen Browser";
   version = version.twilight.tag_name;
@@ -10,6 +10,10 @@ stdenv.mkDerivation {
     sha256 = version.twilight.digest;
     name = "zen-linux.tar.xz";
   };
+
+  nativeBuildInputs = [
+    autoPatchelfHook
+  ];
 
   installPhase = ''
     mkdir -p "$prefix/lib/zen-${version.twilight.tag_name}"
