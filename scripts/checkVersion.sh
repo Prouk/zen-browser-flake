@@ -35,14 +35,15 @@ GetVersionSHA() {
     | jq -r '.sha')
 }
 
-PushVersionChanges() {  
+PushVersionChanges() {
+  B64=$(base64 version.json)
   curl -s -L \
     -X PUT \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $GH_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
     https://api.github.com/repos/Prouk/zen-browser-flake/contents/version.json \
-    -d '{"message":"version.json update (automated)","committer":{"name":"Prouk (automated)","email":"valentin.tahon2@gmail.com"},"content":"'"$(base64 version.json)"'","sha":"'"$VERSIONSHA"'"}'
+    -d '{"message":"version.json update (automated)","committer":{"name":"Prouk (automated)","email":"valentin.tahon2@gmail.com"},"content":"'"$B64"'","sha":"'"$VERSIONSHA"'"}'
 }
 
  main() {
