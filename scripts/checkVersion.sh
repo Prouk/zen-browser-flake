@@ -59,7 +59,7 @@ PushVersionChanges() {
   JSON=$(sed '7s/.*/,/' <<<"$SOURCES")
 
   echo "Writing to version.json file"
-  echo JSON > version.json
+  echo "$JSON" > version.json
   GetVersionSHA
   PushVersionChanges
 }
