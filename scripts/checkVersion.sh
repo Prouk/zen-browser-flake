@@ -38,7 +38,7 @@ GetReleaseByTag() {
       GetReleaseByTag "${VERSION[$i]}" "beta"
     fi
   done
-  echo source
+  echo "$SOURCES"
 }
 
  main
