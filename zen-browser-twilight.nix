@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     ln -s "$prefix/lib/zen-${version.twilight.tag_name}/zen" $out/bin/zen
   '';
 
-  atchelfFlags = [ "--no-clobber-old-sections" ];
+  patchelfFlags = [ "--no-clobber-old-sections" ];
 
   meta = {
     mainProgram = "zen";
