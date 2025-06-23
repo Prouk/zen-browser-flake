@@ -13,7 +13,7 @@ GetLatestRelease() {
 
   echo "latest release is : $BETAVER"
 
-  $VERSION+=("$BETAVER")
+  VERSION+=("$BETAVER")
 }
 
 GetReleaseByTag() {
@@ -26,7 +26,7 @@ GetReleaseByTag() {
 }
 
 
-func main() {
+ main() {
   GetLatestRelease
   for V in "${VERSION[@]}"
   do
