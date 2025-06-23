@@ -1,10 +1,8 @@
 name: Update version
-
 on:
   workflow_dispatch: 
   schedule:
     - cron: '0 0,6,12,18 * * *'
-
 jobs:
   checkLatestVersion:
     runs-on: ubuntu-latest
@@ -18,14 +16,3 @@ jobs:
         run: ./scripts/checkVersion.sh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  updateVersionJson:
-    needs: checkLatestVersion
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./
-    steps:
-      - name: Check out the repository to the runner
-        uses: actions/checkout@v4
-      - name: Update and push last version to the json
-        run: ../../scripts

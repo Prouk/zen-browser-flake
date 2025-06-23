@@ -1,6 +1,6 @@
 declare -a VERSION=("twilight")
 SOURCES=""
-
+VERSIONSHA=""
 
 GetLatestRelease() {
   echo "Getting latest release tag name"
@@ -26,6 +26,25 @@ GetReleaseByTag() {
     | jq -r '.tag_name as $tag_name | .assets[] | select(.name == "zen.linux-x86_64.tar.xz") | {'"$2"':{$tag_name, browser_download_url, digest}}')
 }
 
+GetVersionSHA() {
+  VERSIONSHA=$(curl -L \
+    -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer <YOUR-TOKEN>" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    https://api.github.com/repos/Prouk/zen-browser-flake/contents/version.json \
+    | jq -r '.sha')
+}
+
+PushVersionChanges() {  
+  curl -L \
+    -X PUT \
+    -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer <YOUR-TOKEN>" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    https://api.github.com/repos/Prouk/zen-browser-flake/contents/version.json \
+    -d '{"message":"version.json update (automated)","committer":{"name":"Prouk (automated)","email":"valentin.tahon2@gmail.com"},"content":"'"$(base64 version.json)"'","sha":"'"$VERSIONSHA"'"}'
+}
+
  main() {
   GetLatestRelease
   for i in "${!VERSION[@]}"
@@ -38,8 +57,11 @@ GetReleaseByTag() {
     fi
   done
   JSON=$(sed '7s/.*/,/' <<<"$SOURCES")
-  
-  echo "$JSON"
+
+  echo "Writing to version.json file"
+  echo JSON > version.json
+  GetVersionSHA
+  PushVersionChanges
 }
 
  main
