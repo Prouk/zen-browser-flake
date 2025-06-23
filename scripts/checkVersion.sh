@@ -27,7 +27,7 @@ GetReleaseByTag() {
 }
 
 GetVersionSHA() {
-  VERSIONSHA=$(curl -L \
+  VERSIONSHA=$(curl -s -L \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $GH_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
@@ -36,7 +36,7 @@ GetVersionSHA() {
 }
 
 PushVersionChanges() {  
-  curl -L \
+  curl -s -L \
     -X PUT \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $GH_TOKEN" \
