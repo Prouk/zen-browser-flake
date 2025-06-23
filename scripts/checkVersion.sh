@@ -2,7 +2,7 @@ NEEDUPDATE=false
 VERSION=("twilight")
 
 
-func GetLatestRelease() {
+func GetLatestRelease {
   echo "Getting latest release tag name"
   BETAVER=$(curl -L \
     -H "Accept: application/vnd.github+json" \
@@ -14,7 +14,7 @@ func GetLatestRelease() {
   $VERSION+=($BETAVER)
 }
 
-func GetReleaseByTag() {
+func GetReleaseByTag {
   echo "Getting release infos for $1"
   ehco $(curl -L \
     -H "Accept: application/vnd.github+json" \
