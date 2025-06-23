@@ -37,7 +37,7 @@ GetReleaseByTag() {
       GetReleaseByTag "${VERSION[$i]}" "beta"
     fi
   done
-  JSON=$(sed -i "16d" <<<"$SOURCES" | sed -i "15s/$/,/")
+  JSON=$(sed -i '7s/.*/,/' <<<"$SOURCES")
   
   echo "$JSON"
 }
