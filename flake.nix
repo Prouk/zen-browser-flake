@@ -12,14 +12,15 @@
       pkgs = import nixpkgs {
         inherit system;
       };
-      version = builtins.fromJSON (builtins.readFile ./version.json);
     in
     {
-      packages.${system} = {
-        zen-browser-beta= pkgs.callPackage ./zen-browser-beta.nix {version = version;};
-        zen-browser-twilight = pkgs.callPackage ./zen-browser-twilight.nix {version = version;};
-      };
-    
+      packages.${system} = (
+        let
+          packages = import ./. { inherit pkgs system; };
+        in
+        packages
+      );
+      
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
     };
 }

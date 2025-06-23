@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Zen Browser (twilight)
+Exec=zen-twilight %u
+Type=Application
+Terminal=false
