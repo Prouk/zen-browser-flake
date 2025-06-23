@@ -28,7 +28,7 @@ GetReleaseByTag() {
 
 func main() {
   GetLatestRelease
-  for V in ${VERSION[@]}
+  for V in "${VERSION[@]}"
   do
     GetReleaseByTag $V
   done
