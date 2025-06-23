@@ -4,15 +4,11 @@
   autoPatchelfHook,
   patchelfUnstable,
   gtk3,
-  alsa-lib,
-  dbus-glib,
   libva,
+  alsa-lib,
   pciutils,
-  adwaita-icon-theme,
-  libXtst,
-  curl,
   libGL,
-  pipewire,
+  wrapGAppsHook3,
   ...
 }:
 stdenv.mkDerivation {
@@ -28,27 +24,20 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [
+    wrapGAppsHook3
     autoPatchelfHook
     patchelfUnstable
   ];
 
   buildInputs = [
-    gtk3
     alsa-lib
-    dbus-glib
-    adwaita-icon-theme
-    libXtst
+    gtk3
   ];
 
   runtimeDependencies = [
-    libGL
-    curl
     libva
     pciutils
-  ];
-
-  appendRunpaths = [
-    "${pipewire}/lib"
+    libGL
   ];
 
   installPhase = ''

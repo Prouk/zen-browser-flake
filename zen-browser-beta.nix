@@ -1,26 +1,64 @@
 {
-  pkgs,
+  stdenv,
   version,
-  fetchurl,
+  autoPatchelfHook,
+  patchelfUnstable,
+  gtk3,
+  libva,
+  alsa-lib,
+  pciutils,
+  libGL,
   ...
 }:
+stdenv.mkDerivation {
+  pname = "Zen Browser";
+  version = version.beta.tag_name;
 
-pkgs.stdenv.mkDerivation {
-  pname = "zen-browser";
-  applicationName = version.name;
-  version = "0.1";
+  desktopSrc = ./zen-twilight.desktop;
 
-  src = fetchurl {
-    url = src.url;
-    sha256 = src.sha256;
+  src = builtins.fetchurl {
+    url = version.beta.browser_download_url;
+    sha256 = version.beta.digest;
+    name = "zen-linux.tar.xz";
   };
 
+  nativeBuildInputs = [
+    autoPatchelfHook
+    patchelfUnstable
+  ];
+
+  buildInputs = [
+    alsa-lib
+    gtk3
+  ];
+
+  runtimeDependencies = [
+    libva
+    pciutils
+    libGL
+  ];
+
   installPhase = ''
+    mkdir -p "$prefix/lib/zen-${version.beta.tag_name}"
+    cp -r * "$prefix/lib/zen-${version.beta.tag_name}"
+
     mkdir -p $out/bin
-    ls -la
-    chmod +x zen zen-bin
-    cp -r * $out/bin
-    ls -la $out/bin
-    # $out/bin/zen-bin
+    ln -s "$prefix/lib/zen-${version.beta.tag_name}/zen" $out/bin/zen
   '';
+
+  patchelfFlags = [ "--no-clobber-old-sections" ];
+
+  meta = {
+    mainProgram = "zen";
+    description = ''
+      Zen is a privacy-focused browser that blocks trackers, ads, and other unwanted content while offering the best browsing experience!
+    '';
+  };
+
+  passthru = {
+    libName = "zen-${version.beta.tag_name}";
+    binaryName = "zen";
+    gssSupport = true;
+    ffmpegSupport = true;
+  };
 }
