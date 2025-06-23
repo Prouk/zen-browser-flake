@@ -18,7 +18,7 @@ GetLatestRelease() {
 
 GetReleaseByTag() {
   echo "Getting release infos for $1"
-  ehco $(curl -L \
+  echo $(curl -L \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $GH_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
