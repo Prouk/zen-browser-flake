@@ -36,7 +36,7 @@ GetVersionSHA() {
 }
 
 PushVersionChanges() {
-  B64=$(base64 version.json)
+  B64=$(cat version.json | base64 -w 0)
   curl -s -L \
     -X PUT \
     -H "Accept: application/vnd.github+json" \
