@@ -27,11 +27,10 @@ GetReleaseByTag() {
 }
 
  main() {
-  
   GetLatestRelease
   for i in "${!VERSION[@]}"
   do
-    if ["$i" = 0]
+    if ["$i" -eq 0]
     then
       GetReleaseByTag "${VERSION[$i]}" "twilight"
       SOURCES+=","
