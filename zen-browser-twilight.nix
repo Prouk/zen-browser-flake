@@ -1,4 +1,4 @@
-{ stdenv, version, autoPatchelfHook, ... }:
+{ stdenv, version, autoPatchelfHook, patchelfUnstable, ... }:
 stdenv.mkDerivation {
   pname = "Zen Browser";
   version = version.twilight.tag_name;
@@ -13,6 +13,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     autoPatchelfHook
+    patchelfUnstable
   ];
 
   installPhase = ''
