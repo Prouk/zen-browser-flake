@@ -6,25 +6,26 @@ on:
     - cron: '0 0,6,12,18 * * *'
 
 jobs:
-  updateVersion:
+  checkLatestVersion:
     runs-on: ubuntu-latest
-    # permissions:
-      # contents: write
     defaults:
       run:
         working-directory: ./
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
-      - name: Install Nix
-        uses: cachix/install-nix-action@v31
-        with:
-          nix_path: nixpkgs=channel:nixpkgs-unstable
-      - name: get latest ver from zen git
+      - name: Ceck the last versions available
+        run: ./scripts/checkVersion.sh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./scripts/updateVersion.sh
-      - name: push diff
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./scripts/pushDiff.sh
+  updateVersionJson:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
+      - name: Update and push last version to the json
+        run: ../../scripts
+        if: 

@@ -1,9 +1,9 @@
-{ pkgs, fetchurl, version, ... }:
+{ pkgs, version, ... }:
 pkgs.stdenv.mkDerivation {
   pname = "zen-browser";
   version = version.twilight.name;
 
-  src = fetchurl {
+  src = fetchTarball {
     url = version.twilight.tarball_url;
     sha256 = version.twilight.tarball_sha;
   };
