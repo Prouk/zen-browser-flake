@@ -1,5 +1,5 @@
 NEEDUPDATE=false
-VERSION=("twilight")
+VERSION=(twilight)
 
 
 func GetLatestRelease {
@@ -11,7 +11,7 @@ func GetLatestRelease {
     https://api.github.com/repos/zen-browser/desktop/releases/latest \
     | jq -r '.tag_name')
 
-  $VERSION+=$BETAVER
+  $VERSION+=($BETAVER)
 }
 
 func GetReleaseByTag {
