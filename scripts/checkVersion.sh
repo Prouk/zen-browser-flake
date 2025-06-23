@@ -1,5 +1,5 @@
 NEEDUPDATE=false
-VERSION=(twilight)
+declare -a VERSION=("twilight")
 
 
 GetLatestRelease() {
