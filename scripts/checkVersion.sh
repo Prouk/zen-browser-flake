@@ -25,10 +25,10 @@ func GetReleaseByTag() {
 
 
 func main() {
-  GetLatestRelease()
-  for v in ${VERSION[@]}
+  GetLatestRelease
+  for V in ${VERSION[@]}
   do
-    GetReleaseByTag()
+    GetReleaseByTag $V
   done
 }
 
