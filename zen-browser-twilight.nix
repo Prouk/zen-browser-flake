@@ -8,7 +8,9 @@
   alsa-lib,
   pciutils,
   libGL,
+  libgbm,
   wrapGAppsHook3,
+  libva-vdpau-driver,
   ...
 }:
 stdenv.mkDerivation {
@@ -36,6 +38,8 @@ stdenv.mkDerivation {
 
   runtimeDependencies = [
     libva
+    libgbm
+    libva-vdpau-driver
     pciutils
     libGL
   ];
