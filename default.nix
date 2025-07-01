@@ -9,5 +9,5 @@ rec  {
   twilight = pkgs.callPackage ./zen-twilight.nix {
     inherit version;
   };
-  default = beta;
+  default = twilight;
 }

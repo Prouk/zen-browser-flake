@@ -1,45 +1,42 @@
 {
-  stdenv,
-  fetchurl,
   version,
-  wrapGAppsHook3,
-  autoPatchelfHook,
-  makeWrapper,
-  gtk3,
-  alsa-lib,
-  pciutils,
-  libGL,
-  ...
+  pkgs ? import <nixpkgs> {}
 }:
-stdenv.mkDerivation {
+let
+  libs = with pkgs; [
+  ];
+in
+pkgs.stdenv.mkDerivation {
   pname = "zen";
   version = version.twilight.tag_name;
 
-  src = fetchurl {
+  src = pkgs.fetchurl {
     url = version.twilight.browser_download_url;
     sha256 = version.twilight.digest;
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook3
-    autoPatchelfHook
-    makeWrapper
+  phases = [
+    "unpackPhase"
+    "installPhase"
+    "fixupPhase"
   ];
 
-  buildInputs = [
-    gtk3
-    alsa-lib
-    pciutils
-    libGL
+  buildInputs = with pkgs; [
+    makeWrapper
+    patchelf
   ];
 
   installPhase = ''
-    mkdir -p $out/opt/zen
-    cp -r . $out/opt/zen
     mkdir -p $out/bin
-    makeWrapper $out/opt/zen/zen $out/bin/zen \
-      --set MOZILLA_FIVE_HOME "$out/opt/zen" \
-      --set LIBGL_DRIVERS_PATH "/run/opengl-driver/lib/dri" \
-      --prefix LD_LIBRARY_PATH : "${pciutils}/lib:${libGL}/lib:${libGL}/lib:/run/opengl-driver/lib"
+    cp -r ./ $out/bin
+
+    isntall -D 
   '';
+
+  meta = with pkgs.lib; {
+    description = "Zen Twilight";
+    homepage = "https://zen-browser.app/download/?twilight";
+    maintainers = with maintainers; [ Prouk ];
+    paltforms = platforms.linux;
+  };
 }
