@@ -3,11 +3,15 @@ let
   version = builtins.fromJSON(builtins.readFile ./version.json);
 in
 rec  {
-  beta = pkgs.callPackage ./zen-beta.nix {
+  beta-unwrapped = pkgs.callPackage ./zen-beta-unwrapped.nix {
     inherit version;
   };
-  twilight = pkgs.callPackage ./zen-twilight.nix {
+  twilight-unwrapped = pkgs.callPackage ./zen-twilight-unwrapped.nix {
     inherit version;
   };
+
+  beta = pkgs.wrapFirefox beta-unwrapped {};
+  twilight = pkgs.wrapFirefox twilight-unwrapped {};
+  
   default = twilight;
 }
