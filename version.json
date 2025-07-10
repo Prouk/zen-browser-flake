@@ -6,8 +6,8 @@
   }
 ,
   "beta": {
-    "tag_name": "1.14.2b",
-    "browser_download_url": "https://github.com/zen-browser/desktop/releases/download/1.14.2b/zen.linux-x86_64.tar.xz",
-    "digest": "sha256:3853803aca98045e191bc44b355fae348cd3986b8bbda27c3fad9ca7b8154520"
+    "tag_name": "1.14.3b",
+    "browser_download_url": "https://github.com/zen-browser/desktop/releases/download/1.14.3b/zen.linux-x86_64.tar.xz",
+    "digest": "sha256:ce147c83b940e10e74834369074cfd73da3a0956804fdaf37efd19f64215b448"
   }
 }
