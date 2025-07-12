@@ -15,10 +15,12 @@ let
       cairo
       gdk-pixbuf
       alsa-lib
+      dbus-glib
       pciutils
       libGL
-      libva
-      libva-vdpau-driver
+      libva.out
+      libva-utils
+      libdrm
       ffmpeg-full
     ]
     ++ (with pkgs.xorg; [
@@ -56,7 +58,7 @@ pkgs.stdenv.mkDerivation {
     mkdir -p $out/bin
     cp -r . $out/bin
 
-    install -D $desktopSrc/zen.desktop $out/share/applications/zen.png
+    install -D $desktopSrc/zen.desktop $out/share/applications/zen.desktop
     install -D ./browser/chrome/icons/default/default128.png $out/share/icons/hicolor/apps/zen.png
   '';
 
@@ -78,8 +80,5 @@ pkgs.stdenv.mkDerivation {
       Zen is a firefox-based browser with the aim of pushing your productivity to a new level!
     '';
   };
-
-  
-    passthru.gtk3 = pkgs.gtk3;
-  
+  passthru.gtk3 = pkgs.gtk3;
 }
