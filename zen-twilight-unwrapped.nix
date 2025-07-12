@@ -1,30 +1,55 @@
 {
-  version,
+  infos,
   pkgs ? import <nixpkgs> { },
 }:
 let
-  runtimeLibs = pkgs.lib.makeLibraryPath (
+  runtimeLibs =
     with pkgs;
     [
+      gtk3
+      glib
+      dbus-glib
+      libgcc.lib
+      pango
+      atk
+      cairo
+      gdk-pixbuf
+      alsa-lib
+      dbus-glib
+      pciutils
+      libGL
+      libva.out
+      libva-utils
+      libdrm
+      ffmpeg-full
     ]
     ++ (with pkgs.xorg; [
-    ])
-  );
+      libxcb
+      libX11
+      libXext
+      libXrandr
+      libXcomposite
+      libXcursor
+      libXdamage
+      libXfixes
+      libXi
+    ]);
 in
-pkgs.wrapFirefox (pkgs.stdenv.mkDerivation {
+pkgs.stdenv.mkDerivation {
   pname = "zen";
-  version = version.twilight.tag_name;
+  applicationName = "Zen Browser";
+  version = infos.tag_name;
 
   desktopSrc = ./.;
 
   src = pkgs.fetchurl {
-    url = version.twilight.browser_download_url;
-    sha256 = version.twilight.digest;
+    url = infos.browser_download_url;
+    sha256 = infos.digest;
   };
 
   phases = "unpackPhase installPhase fixupPhase";
 
-  nativeBuildInputs = with pkgs; [i
+  nativeBuildInputs = with pkgs; [
     makeWrapper
     wrapGAppsHook3
   ];
@@ -33,23 +58,27 @@ pkgs.wrapFirefox (pkgs.stdenv.mkDerivation {
     mkdir -p $out/bin
     cp -r . $out/bin
 
-    install -D $desktopSrc/zen.desktop $out/share/applications/zen.png
-    install -D ./browser/vhrome/icons/default/default128.png $out/share/icons/hicolor/apps/zen.png
+    install -D $desktopSrc/zen.desktop $out/share/applications/zen.desktop
+    install -D ./browser/chrome/icons/default/default128.png $out/share/icons/hicolor/apps/zen.png
   '';
 
   fixupPhase = ''
     chmod 755 $out/bin/*
 
-    patchelf --set-interpreter ${pkgs.binutils.dynamicLinker} $out/bin/zen
-    wrapProgram $out/bin/zen \
-      --set LD_LIBRARY_PATH ${pkgs.lib.makeLibraryPath runtimeLibs} \
-      --set MOZ_
+    for b in zen zen-bin glxtest vaapitest
+    do
+      patchelf --set-interpreter ${pkgs.binutils.dynamicLinker} $out/bin/$b
+      wrapProgram $out/bin/$b \
+        --set LD_LIBRARY_PATH ${pkgs.lib.makeLibraryPath runtimeLibs}
+    done
+
   '';
 
-  meta = with pkgs.lib; {
-    description = "Zen Twilight";
-    homepage = "https://zen-browser.app/download/?twilight";
-    maintainers = with maintainers; [ Prouk ];
-    platforms = platforms.linux;
+  meta = {
+    mainProgram = "zen";
+    description = ''
+      Zen is a firefox-based browser with the aim of pushing your productivity to a new level!
+    '';
   };
-})
+  passthru.gtk3 = pkgs.gtk3;
+}

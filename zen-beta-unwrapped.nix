@@ -1,45 +1,85 @@
 {
-  stdenv,
-  fetchurl,
-  version,
-  wrapGAppsHook3,
-  autoPatchelfHook,
-  makeWrapper,
-  gtk3,
-  alsa-lib,
-  pciutils,
-  libGL,
-  ...
+  infos,
+  pkgs ? import <nixpkgs> { },
 }:
-stdenv.mkDerivation {
+let
+  runtimeLibs =
+    with pkgs;
+    [
+      gtk3
+      glib
+      dbus-glib
+      libgcc.lib
+      pango
+      atk
+      cairo
+      gdk-pixbuf
+      alsa-lib
+      pciutils
+      libGL
+      libva
+      libva-vdpau-driver
+      ffmpeg-full
+    ]
+    ++ (with pkgs.xorg; [
+      libxcb
+      libX11
+      libXext
+      libXrandr
+      libXcomposite
+      libXcursor
+      libXdamage
+      libXfixes
+      libXi
+    ]);
+in
+pkgs.stdenv.mkDerivation {
   pname = "zen";
-  version = version.beta.tag_name;
+  applicationName = "Zen Browser";
+  version = infos.tag_name;
 
-  src = fetchurl {
-    url = version.beta.browser_download_url;
-    sha256 = version.beta.digest;
+  desktopSrc = ./.;
+
+  src = pkgs.fetchurl {
+    url = infos.browser_download_url;
+    sha256 = infos.digest;
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook3
-    autoPatchelfHook
-    makeWrapper
-  ];
+  phases = "unpackPhase installPhase fixupPhase";
 
-  buildInputs = [
-    gtk3
-    alsa-lib
-    pciutils
-    libGL
+  nativeBuildInputs = with pkgs; [
+    makeWrapper
+    wrapGAppsHook3
   ];
 
   installPhase = ''
-    mkdir -p $out/opt/zen
-    cp -r . $out/opt/zen
     mkdir -p $out/bin
-    makeWrapper $out/opt/zen/zen $out/bin/zen \
-      --set MOZILLA_FIVE_HOME "$out/opt/zen" \
-      --set LIBGL_DRIVERS_PATH "/run/opengl-driver/lib/dri" \
-      --prefix LD_LIBRARY_PATH : "${pciutils}/lib:${libGL}/lib:${libGL}/lib:/run/opengl-driver/lib"
+    cp -r . $out/bin
+
+    install -D $desktopSrc/zen.desktop $out/share/applications/zen.png
+    install -D ./browser/chrome/icons/default/default128.png $out/share/icons/hicolor/apps/zen.png
   '';
+
+  fixupPhase = ''
+    chmod 755 $out/bin/*
+
+    for b in zen zen-bin glxtest vaapitest
+    do
+      patchelf --set-interpreter ${pkgs.binutils.dynamicLinker} $out/bin/$b
+      wrapProgram $out/bin/$b \
+        --set LD_LIBRARY_PATH ${pkgs.lib.makeLibraryPath runtimeLibs}
+    done
+
+  '';
+
+  meta = {
+    mainProgram = "zen";
+    description = ''
+      Zen is a firefox-based browser with the aim of pushing your productivity to a new level!
+    '';
+  };
+
+  
+    passthru.gtk3 = pkgs.gtk3;
+  
 }

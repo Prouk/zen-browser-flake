@@ -4,14 +4,14 @@ let
 in
 rec  {
   beta-unwrapped = pkgs.callPackage ./zen-beta-unwrapped.nix {
-    inherit version;
+    infos = version.beta;
   };
   twilight-unwrapped = pkgs.callPackage ./zen-twilight-unwrapped.nix {
-    inherit version;
+    infos = version.twilight;
   };
 
   beta = pkgs.wrapFirefox beta-unwrapped {};
   twilight = pkgs.wrapFirefox twilight-unwrapped {};
   
-  default = twilight;
+  default = beta;
 }
