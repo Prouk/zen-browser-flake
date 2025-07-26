@@ -2,12 +2,12 @@
   "twilight": {
     "tag_name": "twilight",
     "browser_download_url": "https://github.com/zen-browser/desktop/releases/download/twilight/zen.linux-x86_64.tar.xz",
-    "digest": "sha256:d71a30f404ab2d05b98e05d229f0917b1c91b52aae37f1cd58cd16e63e43882e"
+    "digest": "sha256:32c032739e919ad6daf66add7b8d27248f5422187fcb7c7c0455c2076fac86c2"
   }
 ,
   "beta": {
-    "tag_name": "1.14.6b",
-    "browser_download_url": "https://github.com/zen-browser/desktop/releases/download/1.14.6b/zen.linux-x86_64.tar.xz",
-    "digest": "sha256:37c7ba78e6b7fd6c2a6988f23450f29867870e72ec93a713c3b36ee65c0443d2"
+    "tag_name": "1.14.7b",
+    "browser_download_url": "https://github.com/zen-browser/desktop/releases/download/1.14.7b/zen.linux-x86_64.tar.xz",
+    "digest": "sha256:9ec98f3925f045c9f2776ab57d2639a193e1acd0cb9e1692747786f9a815a98d"
   }
 }
