@@ -2,7 +2,7 @@ name: Update version
 on:
   workflow_dispatch: 
   schedule:
-    - cron: '0 0,12 * * *'
+    - cron: '0 0 * * *'
 jobs:
   checkLatestVersion:
     runs-on: ubuntu-latest
